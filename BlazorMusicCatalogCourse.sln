@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.1.32113.165
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorMusicCatalogCourse.Server", "BlazorMusicCatalogCourse.Server\BlazorMusicCatalogCourse.Server.csproj", "{780F0D9E-1DE9-4F3D-8FF6-FF010A4A4BEE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorMusicCatalogCourse.Server", "BlazorMusicCatalogCourse.Server\BlazorMusicCatalogCourse.Server.csproj", "{780F0D9E-1DE9-4F3D-8FF6-FF010A4A4BEE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorMusicCatalogCourse.Data", "BlazorMusicCatalogCourse.Data\BlazorMusicCatalogCourse.Data.csproj", "{14C10FE4-8E9A-4F59-8181-93585AA0AFC3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorMusicCatalogCourse.Data", "BlazorMusicCatalogCourse.Data\BlazorMusicCatalogCourse.Data.csproj", "{14C10FE4-8E9A-4F59-8181-93585AA0AFC3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorMusicCatalogCourse.Models", "BlazorMusicCatalogCourse.Models\BlazorMusicCatalogCourse.Models.csproj", "{970930C4-2AD9-438D-AD09-61CBE5912987}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorMusicCatalogCourse.Models", "BlazorMusicCatalogCourse.Models\BlazorMusicCatalogCourse.Models.csproj", "{970930C4-2AD9-438D-AD09-61CBE5912987}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

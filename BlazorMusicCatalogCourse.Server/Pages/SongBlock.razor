@@ -1,0 +1,22 @@
+﻿<div class="row">
+    <div class="col-12 mb-2">
+        <span class="form-label">Name</span>
+        <input class="form-control" type="text" @bind="Song.Name" />
+    </div>
+    <div class="col-12 mb-2">
+        <span class="form-label">Upload</span>
+        <InputFile class="form-control" />
+    </div>
+    <div class="col-12 mb-2">
+        <button class="btn btn-primary" @onclick="() => OnSongChanged.InvokeAsync(Song)">Update</button>
+    </div>
+</div>
+
+@code {
+
+    [Parameter]
+    public Song Song { get; set; } = null!;
+    [Parameter]
+    public EventCallback<Song> OnSongChanged { get; set; }
+
+}
