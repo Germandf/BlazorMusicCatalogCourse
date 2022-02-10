@@ -26,9 +26,10 @@ namespace BlazorMusicCatalogCourse.Data.Services
             throw new NotImplementedException();
         }
 
-        public Task<bool> InsertAlbum(Album album)
+        public async Task<bool> InsertAlbum(Album album)
         {
-            throw new NotImplementedException();
+            _context.Add(album);
+            return await _context.SaveChangesAsync() > 0;
         }
 
         public Task<bool> UpdateAlbum(Album album)
