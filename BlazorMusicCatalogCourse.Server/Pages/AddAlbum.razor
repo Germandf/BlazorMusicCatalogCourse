@@ -15,6 +15,10 @@ else
                 <InputText class="form-control col-sm-5" @bind-Value="_album.Title" />
             </div>
             <div class="col-12 mb-2">
+                <span class="form-label">Cover</span>
+                <InputFile class="form-control col-sm-5" OnChange="LoadAlbumCover" />
+            </div>
+            <div class="col-12 mb-2">
                 <span class="form-label">Description</span>
                 <InputText class="form-control col-sm-5" @bind-Value="_album.Description" />
             </div>
@@ -62,6 +66,15 @@ else
     public void AddSong()
     {
         _album.Songs.Add(new Song());
+    }
+
+    private async Task LoadAlbumCover(InputFileChangeEventArgs e)
+    {
+        var format = "image/png";
+        var resizedFile = await e.File.RequestImageFileAsync(format, 200, 200);
+        var buffer = new byte[resizedFile.Size];
+        await resizedFile.OpenReadStream().ReadAsync(buffer);
+        _album.CoverImage = buffer;
     }
 
     private async Task SaveAlbum()
