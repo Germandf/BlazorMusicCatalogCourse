@@ -4,6 +4,7 @@ using BlazorMusicCatalogCourse.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BlazorMusicCatalogCourse.Data.Migrations
 {
     [DbContext(typeof(BlazorMusicCatalogCourseContext))]
-    partial class BlazorMusicCatalogCourseContextModelSnapshot : ModelSnapshot
+    [Migration("20220210230300_AddNumberToSong")]
+    partial class AddNumberToSong
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
