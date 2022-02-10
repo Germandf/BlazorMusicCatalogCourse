@@ -1,14 +1,13 @@
-﻿<div class="row">
+﻿@using System.IO
+
+<div class="row">
     <div class="col-12 mb-2">
         <span class="form-label">Name</span>
         <input class="form-control" type="text" @bind="Song.Name" />
     </div>
     <div class="col-12 mb-2">
         <span class="form-label">Upload</span>
-        <InputFile class="form-control" />
-    </div>
-    <div class="col-12 mb-2">
-        <button class="btn btn-primary" @onclick="() => OnSongChanged.InvokeAsync(Song)">Update</button>
+        <InputFile OnChange="LoadSong" class="form-control" />
     </div>
 </div>
 
@@ -16,7 +15,22 @@
 
     [Parameter]
     public Song Song { get; set; } = null!;
-    [Parameter]
-    public EventCallback<Song> OnSongChanged { get; set; }
+
+    private async Task LoadSong(InputFileChangeEventArgs e)
+    {
+        var fileName = e.File.Name.Replace(" ", "-");
+        var folderName = Path.Combine("wwwroot", "songs");
+        var pathToSave = Path.Combine(Directory.GetCurrentDirectory(), folderName);
+        var fullPath = Path.Combine(pathToSave, fileName);
+
+        Song.Extension = e.File.Name.Substring(e.File.Name.Count() - 3, 3);
+        Song.Path = fileName;
+
+        using(var ms = new MemoryStream())
+        {
+            await e.File.OpenReadStream(int.MaxValue).CopyToAsync(ms);
+            await File.WriteAllBytesAsync(fullPath, ms.ToArray());
+        }
+    }
 
 }

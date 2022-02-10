@@ -63,17 +63,6 @@ else
         _album.Songs.Add(new Song());
     }
 
-    public async void UpdateAddedSong(Song song)
-    {
-        var songToUpdate = _album.Songs.FirstOrDefault(x => x.Number == song.Number);
-        if(songToUpdate is not null)
-        {
-            songToUpdate.Extension = song.Extension;
-            songToUpdate.Name = song.Name;
-            songToUpdate.Path = song.Path;
-        }
-    }
-
     private async Task SaveAlbum()
     {
 
