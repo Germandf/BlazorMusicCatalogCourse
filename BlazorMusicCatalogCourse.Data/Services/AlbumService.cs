@@ -1,4 +1,5 @@
 ﻿using BlazorMusicCatalogCourse.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace BlazorMusicCatalogCourse.Data.Services
 {
@@ -16,9 +17,12 @@ namespace BlazorMusicCatalogCourse.Data.Services
             throw new NotImplementedException();
         }
 
-        public Task<Album> GetAlbum(int id)
+        public async Task<Album?> GetAlbum(int id)
         {
-            throw new NotImplementedException();
+            return await _context.Albums
+                .Where(x => x.Id == id)
+                .Include(x => x.Songs)
+                .FirstOrDefaultAsync();
         }
 
         public Task<IEnumerable<Album>> GetAlbums()
