@@ -1,4 +1,5 @@
 ﻿@page "/add-album"
+@page "/add-album/{id:int}"
 @inject NavigationManager _navigationManager
 @inject IAlbumService _albumService
 
@@ -49,13 +50,24 @@ else
 
 @code {
 
-    private Album _album = new() { ReleaseDate = DateTime.Now, Songs = new List<Song>() };
+    [Parameter]
+    public int Id { get; set; }
+
+    private Album _album;
 
     protected override async Task OnInitializedAsync()
     {
         try
         {
-            _album.Songs.Add(new Song() { Number = _album.Songs.Count + 1 });
+            if(Id > 0)
+            {
+                _album = await _albumService.GetAlbum(Id);
+            }
+            else
+            {
+                _album = new() { ReleaseDate = DateTime.Now, Songs = new List<Song>() };
+                _album.Songs.Add(new Song() { Number = _album.Songs.Count + 1 });
+            }
         }
         catch (Exception)
         {
@@ -79,10 +91,16 @@ else
 
     private async Task SaveAlbum()
     {
-        var success = await _albumService.InsertAlbum(_album);
+        var success = false;
+        if (Id > 0)
+            success = await _albumService.UpdateAlbum(_album);
+        else
+            success = await _albumService.InsertAlbum(_album);
+        if(success)
+            _navigationManager.NavigateTo("albums");
     }
 
     public void Cancel() =>
-        _navigationManager.NavigateTo("");
+        _navigationManager.NavigateTo("albums");
 
 }
