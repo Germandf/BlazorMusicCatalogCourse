@@ -37,7 +37,7 @@ else
 
         @foreach (var song in _album.Songs)
         {
-            <SongBlock Song="song" />
+            <SongBlock Song="song" OnSongRemove="RemoveSong" />
         }
 
         <div class="mb-2">
@@ -77,7 +77,7 @@ else
 
     public void AddSong()
     {
-        _album.Songs.Add(new Song());
+        _album.Songs.Add(new Song() { Number = _album.Songs.Max(x => x.Number) + 1 });
     }
 
     private async Task LoadAlbumCover(InputFileChangeEventArgs e)
@@ -98,6 +98,13 @@ else
             success = await _albumService.InsertAlbum(_album);
         if(success)
             _navigationManager.NavigateTo("albums");
+    }
+
+    private void RemoveSong(Song song)
+    {
+        var songToRemove = _album.Songs.FirstOrDefault(x => x.Number == song.Number);
+        if(songToRemove is not null)
+            _album.Songs.Remove(songToRemove);
     }
 
     public void Cancel() =>

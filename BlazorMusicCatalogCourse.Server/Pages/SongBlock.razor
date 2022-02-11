@@ -8,6 +8,7 @@
     <div class="col-12 mb-2">
         <span class="form-label">Upload</span>
         <InputFile OnChange="LoadSong" class="form-control" />
+        <button class="btn btn-danger" @onclick="() => OnSongRemove.InvokeAsync(Song)">Remove</button>
     </div>
 </div>
 
@@ -15,6 +16,8 @@
 
     [Parameter]
     public Song Song { get; set; } = null!;
+    [Parameter]
+    public EventCallback<Song> OnSongRemove { get; set; }
 
     private async Task LoadSong(InputFileChangeEventArgs e)
     {
