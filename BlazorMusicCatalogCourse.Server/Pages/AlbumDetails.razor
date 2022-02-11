@@ -1,7 +1,7 @@
 ﻿@page "/album/{id:int}"
 @inject IAlbumService _albumService
 
-@if(_album is not null)
+@if(_album is not null && _album.Songs is not null)
 {
     <div class="container">
         <div class="row flow-offset-1">
@@ -13,6 +13,18 @@
             </div>
         </div>
     </div>
+    <div class="my-5"></div>
+    @foreach (var song in _album.Songs)
+    {
+        <div class="row flow-offset-1">
+            <div class="col-md-4">
+                <span>@song.Name</span>
+            </div>
+            <div class="col-md-4">
+                <audio controls="controls" id="@song.Id" src="/songs/@(song.Path)" />
+            </div>
+        </div>
+    }
 }
 else
 {
