@@ -41,8 +41,12 @@ else
         }
 
         <div class="mb-2">
-            <button type="submit" class="btn btn-primary" @onclick="SaveAlbum">Save</button>
-            <button type="button" class="btn btn-primary" @onclick="Cancel">Cancel</button>
+            <button type="submit" class="btn btn-success" @onclick="SaveAlbum">Save</button>
+            <button type="button" class="btn btn-secondary" @onclick="Cancel">Cancel</button>
+            @if(Id > 0)
+            {
+                <button type="button" class="btn btn-danger" @onclick="DeleteAlbum">Delete</button>
+            }
         </div>
     </EditForm>
 }
@@ -80,6 +84,13 @@ else
         _album.Songs.Add(new Song() { Number = _album.Songs.Max(x => x.Number) + 1 });
     }
 
+    private void RemoveSong(Song song)
+    {
+        var songToRemove = _album.Songs.FirstOrDefault(x => x.Number == song.Number);
+        if(songToRemove is not null)
+            _album.Songs.Remove(songToRemove);
+    }
+
     private async Task LoadAlbumCover(InputFileChangeEventArgs e)
     {
         var format = "image/png";
@@ -100,11 +111,11 @@ else
             _navigationManager.NavigateTo("albums");
     }
 
-    private void RemoveSong(Song song)
+    private async Task DeleteAlbum()
     {
-        var songToRemove = _album.Songs.FirstOrDefault(x => x.Number == song.Number);
-        if(songToRemove is not null)
-            _album.Songs.Remove(songToRemove);
+        var success = await _albumService.DeleteAlbum(_album);
+        if(success)
+            _navigationManager.NavigateTo("albums");
     }
 
     public void Cancel() =>
